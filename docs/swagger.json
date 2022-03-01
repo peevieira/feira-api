@@ -1,0 +1,324 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "Documentação do serviço de registro de Feiras",
+        "title": "Serviço de registro de Feiras API",
+        "contact": {
+            "name": "Pedro Vieira",
+            "url": "http://www.swagger.io/support",
+            "email": "pedro.hvieira@live.com"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8181",
+    "basePath": "/api/v1",
+    "paths": {
+        "/arquivo/": {
+            "get": {
+                "description": "Endpont que ira recuperar as informações das feiras de um arquivo CSV e salvar",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Arquivo CSV"
+                ],
+                "summary": "Carregar dados das feiras a partir do CSV",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dominios.Feira"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/feira/": {
+            "get": {
+                "description": "Endpont que vai retornar as informações de todas as feiras",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Recuperar todas as feiras",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dominios.Feira"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "description": "Endpoint que permite criar uma nova feira ao enviar os dados da feira",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Cria uma nova feira",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "feira",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    }
+                }
+            }
+        },
+        "/feira/:id": {
+            "get": {
+                "description": "Endpont que permite passar o id, e retornar as informações da feira com esse id",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Recuperar uma feira",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Id da Feira",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    }
+                }
+            },
+            "put": {
+                "description": "Endpoint que permite atualizar uma feira ao enviar os dados da feira e também o id da feira",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Atualiza as informações de uma feira",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "feira",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    },
+                    {
+                        "type": "string",
+                        "description": "Id da Feira",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "description": "Endpoint que permite deletar uma feira ao enviar o id da feira",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Deletar as informações de uma feira",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Id da Feira",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/dominios.Feira"
+                        }
+                    }
+                }
+            }
+        },
+        "/feira/filtro/:campo/:valor": {
+            "get": {
+                "description": "Endpont que permite passar o tipo de filtro e o valor, e retornar as informações das feiras filtradas",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "Feira"
+                ],
+                "summary": "Recuperar feiras com filtros",
+                "parameters": [
+                    {
+                        "enum": [
+                            "distrito",
+                            "regiao5",
+                            "nome",
+                            "bairro"
+                        ],
+                        "type": "string",
+                        "description": "Campo do filtro",
+                        "name": "campo",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Valor do campo do filtro",
+                        "name": "valor",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/dominios.Feira"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "dominios.Feira": {
+            "type": "object",
+            "required": [
+                "area",
+                "bairro",
+                "censo",
+                "distritoNome",
+                "latitude",
+                "logradouro",
+                "longitude",
+                "nome",
+                "numero",
+                "referencia",
+                "regiao5",
+                "regiao8",
+                "registro",
+                "subPrefeituraNome"
+            ],
+            "properties": {
+                "area": {
+                    "type": "number"
+                },
+                "bairro": {
+                    "type": "string"
+                },
+                "censo": {
+                    "type": "integer"
+                },
+                "distritoID": {
+                    "type": "integer"
+                },
+                "distritoNome": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "latitude": {
+                    "type": "number"
+                },
+                "logradouro": {
+                    "type": "string"
+                },
+                "longitude": {
+                    "type": "number"
+                },
+                "nome": {
+                    "type": "string"
+                },
+                "numero": {
+                    "type": "string"
+                },
+                "referencia": {
+                    "type": "string"
+                },
+                "regiao5": {
+                    "type": "string"
+                },
+                "regiao8": {
+                    "type": "string"
+                },
+                "registro": {
+                    "type": "string"
+                },
+                "subPrefeituraID": {
+                    "type": "integer"
+                },
+                "subPrefeituraNome": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

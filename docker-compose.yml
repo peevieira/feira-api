@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  postgres:
+    image: "postgres"
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=feira      
+    ports:
+      - "5432:5432" 
+
+  feira_servico:
+    image: feira_registro
+    environment:
+      - DATABASE_URI=postgresql://root:root@postgres:5432/feira
+    ports:
+    - "8181:8181"
+    depends_on:
+      - postgres         

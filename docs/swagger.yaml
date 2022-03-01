@@ -1,0 +1,225 @@
+basePath: /api/v1
+definitions:
+  dominios.Feira:
+    properties:
+      area:
+        type: number
+      bairro:
+        type: string
+      censo:
+        type: integer
+      distritoID:
+        type: integer
+      distritoNome:
+        type: string
+      id:
+        type: integer
+      latitude:
+        type: number
+      logradouro:
+        type: string
+      longitude:
+        type: number
+      nome:
+        type: string
+      numero:
+        type: string
+      referencia:
+        type: string
+      regiao5:
+        type: string
+      regiao8:
+        type: string
+      registro:
+        type: string
+      subPrefeituraID:
+        type: integer
+      subPrefeituraNome:
+        type: string
+    required:
+    - area
+    - bairro
+    - censo
+    - distritoNome
+    - latitude
+    - logradouro
+    - longitude
+    - nome
+    - numero
+    - referencia
+    - regiao5
+    - regiao8
+    - registro
+    - subPrefeituraNome
+    type: object
+host: localhost:8181
+info:
+  contact:
+    email: pedro.hvieira@live.com
+    name: Pedro Vieira
+    url: http://www.swagger.io/support
+  description: Documentação do serviço de registro de Feiras
+  title: Serviço de registro de Feiras API
+  version: "1.0"
+paths:
+  /arquivo/:
+    get:
+      consumes:
+      - application/json
+      description: Endpont que ira recuperar as informações das feiras de um arquivo
+        CSV e salvar
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dominios.Feira'
+            type: array
+      summary: Carregar dados das feiras a partir do CSV
+      tags:
+      - Arquivo CSV
+  /feira/:
+    get:
+      consumes:
+      - application/json
+      description: Endpont que vai retornar as informações de todas as feiras
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dominios.Feira'
+            type: array
+      summary: Recuperar todas as feiras
+      tags:
+      - Feira
+    post:
+      consumes:
+      - application/json
+      description: Endpoint que permite criar uma nova feira ao enviar os dados da
+        feira
+      parameters:
+      - description: Body
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/dominios.Feira'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dominios.Feira'
+      summary: Cria uma nova feira
+      tags:
+      - Feira
+  /feira/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Endpoint que permite deletar uma feira ao enviar o id da feira
+      parameters:
+      - description: Id da Feira
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dominios.Feira'
+      summary: Deletar as informações de uma feira
+      tags:
+      - Feira
+    get:
+      consumes:
+      - application/json
+      description: Endpont que permite passar o id, e retornar as informações da feira
+        com esse id
+      parameters:
+      - description: Id da Feira
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dominios.Feira'
+      summary: Recuperar uma feira
+      tags:
+      - Feira
+    put:
+      consumes:
+      - application/json
+      description: Endpoint que permite atualizar uma feira ao enviar os dados da
+        feira e também o id da feira
+      parameters:
+      - description: Body
+        in: body
+        name: feira
+        required: true
+        schema:
+          $ref: '#/definitions/dominios.Feira'
+      - description: Id da Feira
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/dominios.Feira'
+      summary: Atualiza as informações de uma feira
+      tags:
+      - Feira
+  /feira/filtro/:campo/:valor:
+    get:
+      consumes:
+      - application/json
+      description: Endpont que permite passar o tipo de filtro e o valor, e retornar
+        as informações das feiras filtradas
+      parameters:
+      - description: Campo do filtro
+        enum:
+        - distrito
+        - regiao5
+        - nome
+        - bairro
+        in: path
+        name: campo
+        required: true
+        type: string
+      - description: Valor do campo do filtro
+        in: path
+        name: valor
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/dominios.Feira'
+            type: array
+      summary: Recuperar feiras com filtros
+      tags:
+      - Feira
+swagger: "2.0"

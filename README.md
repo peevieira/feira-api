@@ -35,6 +35,10 @@ Aplicação REST API que fornece a manutenção de Feiras
    ```sh
    make swagger
    ```     
+5. Recuperar arquivo de log
+   ```sh
+   make logs
+   ```   
 ### Importar CSV
 
 ```sh 

@@ -2,6 +2,7 @@ package banco
 
 import (
 	"log"
+	"os"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -14,8 +15,7 @@ var (
 )
 
 func ConectarComBancoDeDados() {
-	//CONEXAO := os.Getenv("DATABASE_URI")
-	CONEXAO := "host=localhost user=root password=root dbname=feira port=5432 sslmode=disable"
+	CONEXAO := os.Getenv("DATABASE_URI")
 	DB, err = gorm.Open(postgres.Open(CONEXAO))
 	TratarErro(err)
 

@@ -7,6 +7,7 @@ import (
 	"gitbuh.com/peevieira/feiras-api/src/modelos/dominios"
 	"gitbuh.com/peevieira/feiras-api/src/servicos"
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 type FeiraControlador struct {
@@ -39,6 +40,7 @@ func (controle FeiraControlador) Criar(c *gin.Context) {
 	r := dominios.Feira{}
 
 	if err := c.ShouldBindJSON(&r); err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -48,6 +50,7 @@ func (controle FeiraControlador) Criar(c *gin.Context) {
 	v, err := controle.Validador.ValidarStructFeira(&r)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, v)
 		return
 	}
@@ -55,6 +58,7 @@ func (controle FeiraControlador) Criar(c *gin.Context) {
 	f, err := controle.Servico.Criar(&r)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -79,6 +83,7 @@ func (controle FeiraControlador) Recuperar(c *gin.Context) {
 	f, err := controle.Servico.Recuperar(id)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -102,6 +107,7 @@ func (controle FeiraControlador) RecuperarComFiltro(c *gin.Context) {
 	f, err := controle.Servico.RecuperarComFiltro(c.Params.ByName("campo"), c.Params.ByName("valor"))
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -125,6 +131,7 @@ func (controle FeiraControlador) Atualizar(c *gin.Context) {
 	r := dominios.Feira{}
 
 	if err := c.ShouldBindJSON(&r); err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -134,6 +141,7 @@ func (controle FeiraControlador) Atualizar(c *gin.Context) {
 	v, err := controle.Validador.ValidarStructFeira(&r)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, v)
 		return
 	}
@@ -142,6 +150,7 @@ func (controle FeiraControlador) Atualizar(c *gin.Context) {
 	f, err := controle.Servico.Atualizar(&r, id)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -166,6 +175,7 @@ func (controle FeiraControlador) Deletar(c *gin.Context) {
 	_, err := controle.Servico.Deletar(id)
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})
@@ -189,6 +199,7 @@ func (controle FeiraControlador) RecuperarTudo(c *gin.Context) {
 	f, err := controle.Servico.RecuperarTudo()
 
 	if err != nil {
+		logrus.Error(c.Request.URL.String(), err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"erro": err.Error(),
 		})

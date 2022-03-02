@@ -34,9 +34,7 @@ func (controle ArquivoControlador) CarregarArquivos(c *gin.Context) {
 		feira, err := feiraService.CriarObjetoPronto(&feira)
 
 		if err != nil {
-			logrus.Infoln("[ERRO] Feira não foi salva:", feira)
-		} else {
-			logrus.Infoln("[SUCESSO] Feira salva em banco:", feira)
+			logrus.Error("[ERRO] Feira não foi salva:", feira)
 		}
 	}
 
